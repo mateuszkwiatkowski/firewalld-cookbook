@@ -8,7 +8,7 @@
 actions :new
 
 # Make add the default action
-default_action new
+default_action :new
 
 # Required attributes
 attribute :zone, :kind_of => String, :name_attribute => true
