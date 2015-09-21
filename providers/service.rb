@@ -26,6 +26,16 @@ action :remove do
   new_resource.updated_by_last_action(e.updated_by_last_action?)
 end
 
+action :new do
+  e = execute "create new service #{new_resource.service}" do
+    not_if "firewall-cmd --permanent --query-service=#{new_resource.service}"
+    command(<<-EOC)
+      firewall-cmd --permanent #{zone} --new-service=#{new_resource.service}
+    EOC
+  end
+  new_resource.updated_by_last_action(e.updated_by_last_action?)
+end
+
 def zone
   new_resource.zone ? "--zone=#{new_resource.zone}" : ''
 end
