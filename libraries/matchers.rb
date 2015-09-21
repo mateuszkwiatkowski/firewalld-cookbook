@@ -19,7 +19,15 @@ if defined?(ChefSpec)
     ChefSpec::Matchers::ResourceMatcher.new(:firewalld_service, :add, name)
   end
 
+  def new_firewalld_service(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:firewalld_service, :new, name)
+  end
+
   def remove_firewalld_service(name)
     ChefSpec::Matchers::ResourceMatcher.new(:firewalld_service, :remove, name)
+  end
+
+  def new_firewalld_zone(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:firewalld_zone, :new, name)
   end
 end
