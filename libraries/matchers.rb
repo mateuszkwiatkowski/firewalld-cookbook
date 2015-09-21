@@ -30,4 +30,8 @@ if defined?(ChefSpec)
   def new_firewalld_zone(name)
     ChefSpec::Matchers::ResourceMatcher.new(:firewalld_zone, :new, name)
   end
+
+  def add_interface_firewalld_zone(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:firewalld_zone, :add_interface, name)
+  end
 end

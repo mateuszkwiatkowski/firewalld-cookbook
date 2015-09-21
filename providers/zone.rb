@@ -14,3 +14,15 @@ action :new do
   end
   new_resource.updated_by_last_action(e.updated_by_last_action?)
 end
+
+action :add_interface do
+  e = execute "add interface #{new_resource.interface} to zone #{new_resource.zone}" do
+    not_if "firewall-cmd --permanent --zone=#{new_resource.zone} --query-interface=#{new_resource.interface}"
+    command(<<-EOC)
+      firewall-cmd --zone=#{new_resource.zone} --add-interface=#{new_resource.interface}
+      firewall-cmd --permanent --zone=#{new_resource.zone} --add-interface=#{new_resource.interface}
+    EOC
+  end
+  new_resource.updated_by_last_action(e.updated_by_last_action?)
+end
+
